@@ -1,6 +1,15 @@
 import java.util.ArrayList;
 
-
+/**
+ * 
+ * @author Spencer Miskoviak
+ * @author Duncan Fox
+ * 
+ * CS2321 | Data Structures | Fall 2014
+ * 
+ * This program implements a Vertex structure
+ *
+ */
 public class MyVertex implements Vertex {
 
 	@Override

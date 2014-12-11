@@ -1,6 +1,15 @@
 import java.util.ArrayList;
 
-
+/**
+ * 
+ * @author Spencer Miskoviak
+ * @author Duncan Fox
+ * 
+ * CS2321 | Data Structures | Fall 2014
+ * 
+ * This program implements an Edge structure
+ *
+ */
 public class MyEdge implements Edge {
 
 	@Override
