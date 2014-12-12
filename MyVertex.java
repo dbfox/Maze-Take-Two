@@ -12,9 +12,9 @@ import java.util.ArrayList;
  */
 public class MyVertex implements Vertex {
 
-	ArrayList< Edge > edges = new ArrayList< Edge >();
-	ArrayList< Vertex > vertices = new ArrayList< Vertex >();
-	Pair xyCoord = null;
+	private ArrayList< Edge > edges = new ArrayList< Edge >();
+	private ArrayList< Vertex > vertices = new ArrayList< Vertex >();
+	private Pair xyCoord = null;
 	
 	@Override
 	/**

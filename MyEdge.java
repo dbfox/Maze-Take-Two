@@ -12,25 +12,43 @@ import java.util.ArrayList;
  */
 public class MyEdge implements Edge {
 
+	private int element = 0;
+	private ArrayList< Vertex > vertices = new ArrayList< Vertex >();
+	
 	@Override
+	/**
+	 * 
+	 */
 	public int getElement() {
-		// TODO Auto-generated method stub
-		return 0;
+		return element;
 	}
 
 	@Override
+	/**
+	 * 
+	 */
 	public void setElement(int e) {
-		// TODO Auto-generated method stub
-		
+		element = e;
 	}
 
 	@Override
+	/**
+	 * Returns a list of the two vertices the edge connects
+	 * 
+	 * @return An ArrayList containing the two vertices the edge connects
+	 */
 	public ArrayList<Vertex> vertices() {
-		// TODO Auto-generated method stub
-		return null;
+		return vertices;
 	}
 
+	@Override
+	/**
+	 * Returns a string representation of the edge
+	 * 
+	 * @return A visualization of the edge
+	 */
 	public String toString() {
+		// TODO Auto-generated method stub
 		return "";
 	}
 }
