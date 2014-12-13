@@ -212,7 +212,6 @@ public class MyGraph implements Graph {
 	 * @return boolean - true if two vertices are connected by an edge
 	 */
 	public boolean areConnected(Vertex v1, Vertex v2) {
-		
 		return (findEdge(v1, v2) != null);
 	}
 
@@ -223,7 +222,6 @@ public class MyGraph implements Graph {
 	 * @return Vertex List - a list of all vertices that are adjacent to the given vertex
 	 */
 	public ArrayList<Vertex> adjacentVertices(Vertex v1) {
-		
 		return v1.adjacentVertices();
 	}
 
@@ -234,7 +232,6 @@ public class MyGraph implements Graph {
 	 * @return Edge List - a list of all incident edges with the vertex
 	 */
 	public ArrayList<Edge> incidentEdges(Vertex v1) {
-		
 		return v1.incidentEdges();
 	}
 

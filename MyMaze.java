@@ -13,6 +13,11 @@ import java.util.ArrayList;
  */
 public class MyMaze implements Maze {
 
+	// Class properties
+	private Vertex start = null;
+	private Vertex finish = null;
+	private Graph maze = null;
+	
 	@Override
 	/**
 	 * create a random maze with the specified number of rows and columns
@@ -30,8 +35,7 @@ public class MyMaze implements Maze {
 	 * @return list of vertices representing the path
 	 */
 	public ArrayList<Vertex> solveMaze() {
-		// TODO Auto-generated method stub
-		return null;
+		return maze.shortestPath(start, finish);
 	}
 
 	@Override
@@ -39,8 +43,7 @@ public class MyMaze implements Maze {
 	 * @return a graph representing the maze
 	 */
 	public Graph toGraph() {
-		// TODO Auto-generated method stub
-		return null;
+		return maze;
 	}
 
 	@Override
@@ -57,8 +60,7 @@ public class MyMaze implements Maze {
 	 * @return the start vertex
 	 */
 	public Vertex startVertex() {
-		// TODO Auto-generated method stub
-		return null;
+		return start;
 	}
 
 	@Override
@@ -66,8 +68,7 @@ public class MyMaze implements Maze {
 	 * @return the end vertex
 	 */
 	public Vertex finishVertex() {
-		// TODO Auto-generated method stub
-		return null;
+		return finish;
 	}
 	
 	/**
