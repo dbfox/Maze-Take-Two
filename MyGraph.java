@@ -12,16 +12,30 @@ import java.util.ArrayList;
  */
 public class MyGraph implements Graph {
 
+	ArrayList< Vertex > vertices = new ArrayList< Vertex >();
+	ArrayList< Edge > edges = new ArrayList< Edge >();
+	
 	@Override
 	public ArrayList<Vertex> vertices() {
-		// TODO Auto-generated method stub
-		return null;
+		return vertices;
 	}
 
 	@Override
 	public Vertex addVertex(Pair p) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		// Check to see if vertex already exists
+		for ( Vertex ver : vertices ) {
+			
+			if ( ver.getElement().getX() == p.getX() && ver.getElement().getY() == p.getY() ) {
+				return ver;
+			}
+		}
+		
+		MyVertex temp = new MyVertex();
+		temp.setElement( p );
+		
+		vertices.add( temp );
+		return temp;
 	}
 
 	@Override
@@ -50,8 +64,7 @@ public class MyGraph implements Graph {
 
 	@Override
 	public ArrayList<Edge> edges() {
-		// TODO Auto-generated method stub
-		return null;
+		return edges;
 	}
 
 	@Override
@@ -117,5 +130,4 @@ public class MyGraph implements Graph {
 	public String toString() {
 		return "";
 	}
-
 }
