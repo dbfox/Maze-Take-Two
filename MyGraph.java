@@ -68,7 +68,7 @@ public class MyGraph implements Graph {
 
 		// Find the vertex
 		Vertex ver = findVertex(p);
-		
+
 		// Remove the vertex if it exists
 		if(ver != null) {
 			vertices.remove(ver);
@@ -84,7 +84,7 @@ public class MyGraph implements Graph {
 	 * @return boolean - true if successfully removed
 	 */
 	public boolean removeVertex(Vertex v) {
-		
+
 		return removeVertex(v.getElement());
 	}
 
@@ -125,8 +125,9 @@ public class MyGraph implements Graph {
 	 * @return Edge - the new edge that was added
 	 */
 	public Edge addEdge(Vertex v1, Vertex v2) {
-		// TODO Auto-generated method stub
-		return null;
+
+		// TODO: Need to make a way to make an edge & simply call addEdge(Edge e)
+		return null; 
 	}
 
 	@Override
@@ -136,8 +137,13 @@ public class MyGraph implements Graph {
 	 * @return Edge - the new edge that was added
 	 */
 	public Edge addEdge(Edge e) {
-		// TODO Auto-generated method stub
-		return null;
+
+		// Check if the edge already exists & add it if non-existant
+		Edge edge = findEdge(e.vertices().get(0), e.vertices().get(1));	
+		if(edge == null) {
+			edges.add(e);
+		}
+		return e;
 	}
 
 	@Override
@@ -148,7 +154,8 @@ public class MyGraph implements Graph {
 	 * @return boolean - true if the edge was successfully removed
 	 */
 	public boolean removeEdge(Vertex v1, Vertex v2) {
-		// TODO Auto-generated method stub
+
+		// TODO: Need to make a way to make an edge & simply call removeEdge(Edge e)
 		return false;
 	}
 
@@ -159,7 +166,13 @@ public class MyGraph implements Graph {
 	 * @return boolean - true if the edge was successfully removed
 	 */
 	public boolean removeEdge(Edge e) {
-		// TODO Auto-generated method stub
+
+		// Find the edge
+		Edge edge = findEdge(e.vertices().get(0), e.vertices().get(1));
+		if(edge != null) {
+			edges.remove(e);
+			return true;
+		}
 		return false;
 	}
 
@@ -171,7 +184,23 @@ public class MyGraph implements Graph {
 	 * @return Edge - the edge that was found
 	 */
 	public Edge findEdge(Vertex v1, Vertex v2) {
-		// TODO Auto-generated method stub
+
+		// Find the edge
+		for ( Edge edge : edges ) {
+
+			// Check if the edges (p1 == v1 and p2 == v2) or (p1 == v2 and p2 == v1)
+			ArrayList<Vertex> ver = edge.vertices();
+			Pair p1 = ver.get(0).getElement();
+			Pair p2 = ver.get(0).getElement();
+			if ( ( p1.getX() == v1.getElement().getX() && p1.getY() == v1.getElement().getY() &&
+					p2.getX() == v2.getElement().getX() && p2.getY() == v2.getElement().getY() ) || 
+					( p2.getX() == v1.getElement().getX() && p2.getY() == v1.getElement().getY() &&
+					p1.getX() == v2.getElement().getX() && p1.getY() == v2.getElement().getY() ) ) {
+
+				return edge;
+			}
+		}
+
 		return null;
 	}
 
@@ -183,8 +212,8 @@ public class MyGraph implements Graph {
 	 * @return boolean - true if two vertices are connected by an edge
 	 */
 	public boolean areConnected(Vertex v1, Vertex v2) {
-		// TODO Auto-generated method stub
-		return false;
+		
+		return (findEdge(v1, v2) != null);
 	}
 
 	@Override
@@ -194,8 +223,8 @@ public class MyGraph implements Graph {
 	 * @return Vertex List - a list of all vertices that are adjacent to the given vertex
 	 */
 	public ArrayList<Vertex> adjacentVertices(Vertex v1) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return v1.adjacentVertices();
 	}
 
 	@Override
@@ -205,8 +234,8 @@ public class MyGraph implements Graph {
 	 * @return Edge List - a list of all incident edges with the vertex
 	 */
 	public ArrayList<Edge> incidentEdges(Vertex v1) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return v1.incidentEdges();
 	}
 
 	@Override
