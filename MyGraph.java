@@ -73,6 +73,19 @@ public class MyGraph implements Graph {
 		// Remove the vertex if it exists
 		if(ver != null) {
 			vertices.remove(ver);
+			
+			// Remove adjacent vertices and incident edges appropriately
+			for ( Edge e1 : ver.incidentEdges() ) {
+				
+				e1.vertices().remove( ver );
+				
+				Vertex v1 = e1.vertices().get( 0 );
+				v1.incidentEdges().remove( e1 );
+				v1.adjacentVertices().remove( ver );
+				
+				edges.remove( e1 );
+			}
+			
 			return true;
 		}
 		return false;
@@ -152,6 +165,13 @@ public class MyGraph implements Graph {
 			Edge edge = findEdge(e.vertices().get(0), e.vertices().get(1));	
 			if(edge == null ) {
 				edges.add(e);
+				
+				// Add vertices and edge to adjacent vertices and incident edges lists
+				e.vertices().get( 0 ).adjacentVertices().add( e.vertices().get( 1 ) );
+				e.vertices().get( 0 ).incidentEdges().add( e );
+				e.vertices().get( 1 ).adjacentVertices().add( e.vertices().get( 0 ) );
+				e.vertices().get( 1 ).incidentEdges().add( e );
+				
 				return e;
 			} else {
 				return edge;
@@ -191,7 +211,14 @@ public class MyGraph implements Graph {
 		// Find the edge
 		Edge edge = findEdge(e.vertices().get(0), e.vertices().get(1));
 		if(edge != null) {
-			edges.remove(e);
+			edges.remove(edge);
+			
+			// Remove adjacent vertices and incident edges appropriately
+			e.vertices().get( 0 ).adjacentVertices().remove( e.vertices().get( 1 ) );
+			e.vertices().get( 0 ).incidentEdges().remove( edge );
+			e.vertices().get( 1 ).adjacentVertices().remove( e.vertices().get( 0 ) );
+			e.vertices().get( 1 ).incidentEdges().remove( edge );
+			
 			return true;
 		}
 		return false;
