@@ -49,7 +49,8 @@ public class MyGraph implements Graph {
 		// Check to see if vertex already exists
 		for ( Vertex ver : vertices ) {
 
-			if ( ver.getElement().getX() == v.getElement().getX() && ver.getElement().getY() == v.getElement().getY() ) {
+			if ( ver.getElement().getX() == v.getElement().getX() && 
+					ver.getElement().getY() == v.getElement().getY() ) {
 				return ver;
 			}
 		}
@@ -126,8 +127,14 @@ public class MyGraph implements Graph {
 	 */
 	public Edge addEdge(Vertex v1, Vertex v2) {
 
-		// TODO: Need to make a way to make an edge & simply call addEdge(Edge e)
-		return null; 
+		// Create new edge
+		Edge edge = new MyEdge();
+
+		edge.vertices().add( v1 );
+		edge.vertices().add( v2 );
+
+		// Add edge
+		return addEdge( edge );
 	}
 
 	@Override
@@ -138,12 +145,20 @@ public class MyGraph implements Graph {
 	 */
 	public Edge addEdge(Edge e) {
 
-		// Check if the edge already exists & add it if non-existant
-		Edge edge = findEdge(e.vertices().get(0), e.vertices().get(1));	
-		if(edge == null) {
-			edges.add(e);
+		// Make sure graph contains both vertices
+		if ( vertices.contains( e.vertices().get( 0 ) ) && vertices.contains( e.vertices().get( 1 ) ) ) {
+
+			// Check if the edge already exists & add it if non-existant
+			Edge edge = findEdge(e.vertices().get(0), e.vertices().get(1));	
+			if(edge == null ) {
+				edges.add(e);
+				return e;
+			} else {
+				return edge;
+			}
 		}
-		return e;
+		// If vertices did not exist
+		return null;
 	}
 
 	@Override
@@ -155,8 +170,14 @@ public class MyGraph implements Graph {
 	 */
 	public boolean removeEdge(Vertex v1, Vertex v2) {
 
-		// TODO: Need to make a way to make an edge & simply call removeEdge(Edge e)
-		return false;
+		// Create new edge
+		Edge edge = new MyEdge();
+
+		edge.vertices().add( v1 );
+		edge.vertices().add( v2 );
+
+		// Remove edge
+		return removeEdge( edge );
 	}
 
 	@Override
@@ -191,7 +212,7 @@ public class MyGraph implements Graph {
 			// Check if the edges (p1 == v1 and p2 == v2) or (p1 == v2 and p2 == v1)
 			ArrayList<Vertex> ver = edge.vertices();
 			Pair p1 = ver.get(0).getElement();
-			Pair p2 = ver.get(0).getElement();
+			Pair p2 = ver.get(1).getElement();
 			if ( ( p1.getX() == v1.getElement().getX() && p1.getY() == v1.getElement().getY() &&
 					p2.getX() == v2.getElement().getX() && p2.getY() == v2.getElement().getY() ) || 
 					( p2.getX() == v1.getElement().getX() && p2.getY() == v1.getElement().getY() &&
@@ -212,7 +233,7 @@ public class MyGraph implements Graph {
 	 * @return boolean - true if two vertices are connected by an edge
 	 */
 	public boolean areConnected(Vertex v1, Vertex v2) {
-		
+
 		return (findEdge(v1, v2) != null);
 	}
 
@@ -223,7 +244,7 @@ public class MyGraph implements Graph {
 	 * @return Vertex List - a list of all vertices that are adjacent to the given vertex
 	 */
 	public ArrayList<Vertex> adjacentVertices(Vertex v1) {
-		
+
 		return v1.adjacentVertices();
 	}
 
@@ -234,7 +255,7 @@ public class MyGraph implements Graph {
 	 * @return Edge List - a list of all incident edges with the vertex
 	 */
 	public ArrayList<Edge> incidentEdges(Vertex v1) {
-		
+
 		return v1.incidentEdges();
 	}
 
