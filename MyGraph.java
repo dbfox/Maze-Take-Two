@@ -285,14 +285,37 @@ public class MyGraph implements Graph {
 
 	@Override
 	/**
-	 * find the shortest path between to vertices
+	 * find the shortest path between two vertices
 	 * @param v1 - start vertex
 	 * @param v2 - finish vertex
 	 * @return Vertex List - the shortest path between two vertices
 	 */
 	public ArrayList<Vertex> shortestPath(Vertex v1, Vertex v2) {
-		// TODO Auto-generated method stub
-		return null;
+
+		ArrayList<Vertex> path = new ArrayList<Vertex>();
+
+		// Check if we reached the desired vertex
+		if (v1.getElement().getX() == v2.getElement().getX() &&
+				v1.getElement().getY() == v2.getElement().getY()) {
+			
+			path.add(v2);
+			return path;
+		}
+
+		// Follow all of the starting vertex adjacent vertices
+		for ( Vertex ver : v1.adjacentVertices() ) {
+
+			path = shortestPath( ver, v2 );
+
+			// If this path was successful insert this vertex at the start
+			if ( !path.isEmpty() ) {
+
+				path.add(0, ver);
+				break;
+			}
+		}
+
+		return path;
 	}
 
 	@Override
@@ -313,7 +336,7 @@ public class MyGraph implements Graph {
 		}
 
 		// Pick a vertex to start with
-		int vert = ( int ) Math.random() * outV.size();
+		int vert = ( int ) ( Math.random() * outV.size() );
 
 		tree.addVertex( outV.get( vert ) );
 		outV.remove( vert );
@@ -322,7 +345,7 @@ public class MyGraph implements Graph {
 		while ( outV.size() > 0 ) {
 
 			// Pick a random vertex in tree
-			vert = ( int ) Math.random() * tree.vertices().size();
+			vert = ( int ) ( Math.random() * tree.vertices().size() );
 
 			Vertex temp = tree.vertices().get( vert );
 
@@ -336,7 +359,7 @@ public class MyGraph implements Graph {
 			while ( adjV.size() > 0 ) {
 
 				// Choose an adjacent vertex to try
-				int grab = ( int ) Math.random() * adjV.size();
+				int grab = ( int ) ( Math.random() * adjV.size() );
 
 				Vertex next = adjV.get( grab );
 
@@ -353,15 +376,15 @@ public class MyGraph implements Graph {
 					// Pick a new vertex in tree and continue
 					break;
 				} else {
-					
+
 					// Remove next from list of adjacent vertices
 					adjV.remove( next );
 				}
 			}
 		}
-		
+
 		// Not finished
-		
+
 		return tree;
 	}
 
