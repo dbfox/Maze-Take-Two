@@ -234,4 +234,41 @@ public class MyMazeTest {
 		fail("Not yet implemented");
 	}
 
+
+//	public ArrayList<Vertex> shortestPath(Vertex v1, Vertex v2) {
+//
+//		ArrayList< Vertex > result = new ArrayList< Vertex >();
+//		shortestPathHelper(v1, v2, null, result);
+//
+//		return result;
+//	}
+//
+//	private boolean shortestPathHelper(Vertex v1, Vertex v2, Vertex prev, 
+//			ArrayList< Vertex > result ) {
+//
+//		result.add( v1 );
+//
+//		if ( v1 == v2 ) {
+//			return true;
+//		}
+//
+//		// Check if the path was a dead end
+//		if ( v1.adjacentVertices().size() == 1) {
+//			
+//			result.remove( v1 );
+//			return false;
+//		}
+//
+//		// Follow all of the starting vertex adjacent vertices
+//		for ( Vertex ver : v1.adjacentVertices() ) {
+//
+//			// Don't go back to the previous vertex
+//			if ( ver != prev ) {
+//				if ( shortestPathHelper( ver, v2, v1, result ) ) return true;
+//			}
+//		}
+//
+//		result.remove( v1 );
+//		return false;
+//	}
 }

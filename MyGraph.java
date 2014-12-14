@@ -299,7 +299,7 @@ public class MyGraph implements Graph {
 	private ArrayList<Vertex> shortestPathHelper(Vertex v1, Vertex v2, Vertex prev) {
 		
 		// TODO: PROBLEM - OCCASIONALLY STACK OVERFLOWS (NOT ALWAYS)
-		System.out.println("v1: " + v1 + " v2: " + v2 + " prev: " + prev);
+		//System.out.println("v1: " + v1 + " v2: " + v2 + " prev: " + prev);
 		ArrayList<Vertex> path = new ArrayList<Vertex>();
 
 		// Check if we reached the desired vertex
