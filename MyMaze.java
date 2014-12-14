@@ -67,7 +67,7 @@ public class MyMaze implements Maze {
 		start = mazeArray[( int )( Math.random() * rows )][0];
 		
 		// Pick a random row in the last column for the finish
-		finish = mazeArray[( int )( Math.random() * rows )][rows - 1];
+		finish = mazeArray[( int )( Math.random() * rows )][columns - 1];
 		
 	}
 
