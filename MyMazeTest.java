@@ -16,12 +16,13 @@ import org.junit.Test;
  */
 public class MyMazeTest {
 
+	@Test
 	public void test( ) {
 		MyMaze maze = new MyMaze( );
-		maze.generateMaze( 5, 5 );
-		System.out.println( "startVertext( ): " + maze.startVertex( ) );
-		System.out.println( "finishVertext( ): " + maze.finishVertex( ) );
-		System.out.println( "solveMaze( ): " + maze.solveMaze( ) );
+		maze.generateMaze( 10, 10 );
+//		System.out.println( "startVertext( ): " + maze.startVertex( ) );
+//		System.out.println( "finishVertext( ): " + maze.finishVertex( ) );
+//		System.out.println( "solveMaze( ): " + maze.solveMaze( ) );
 		System.out.println( "maze.toString( ):\n" + maze );
 	}
 

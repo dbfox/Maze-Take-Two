@@ -117,7 +117,45 @@ public class MyMaze implements Maze {
 	 * @return a string representation of the object
 	 */
 	public String toString() {
-		return "\u2022";
+		
+		String str = "";
+		
+		// Iterate rows and columns
+		for ( int row = 0; row < mazeArray.length; row++ ) {
+			
+			String nextRow = "";
+			
+			for ( int col = 0; col < mazeArray[0].length; col++ ) {
+				
+				str += "\u2022";
+				
+				// Check if there is an edge between the two vertical nodes
+				if ( row < mazeArray.length - 1 && 
+						maze.areConnected( mazeArray[row ][col], mazeArray[row + 1][col] ) ) {
+					nextRow += "|";
+				}
+				else {
+					nextRow += " ";
+				}
+				
+				// Space out the next row properly
+				if( col < mazeArray[0].length - 1 ) nextRow += "  ";
+				
+				// Check if there is an edge between the two horizontal nodes
+				if ( col < mazeArray[0].length - 1 && 
+						maze.areConnected( mazeArray[row][col], mazeArray[row][col + 1] ) ) {
+					str += "--";
+				}
+				else {
+					str += "  ";
+				}
+				
+			}
+			
+			str += "\n" + nextRow + "\n";
+		}
+		
+		return str;
 	}
 
 }

@@ -292,7 +292,6 @@ public class MyGraph implements Graph {
 	 */
 	public ArrayList<Vertex> shortestPath(Vertex v1, Vertex v2) {
 
-		System.out.println("Start");
 		return shortestPathHelper(v1, v2, null);
 	}
 
