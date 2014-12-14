@@ -292,6 +292,11 @@ public class MyGraph implements Graph {
 	 */
 	public ArrayList<Vertex> shortestPath(Vertex v1, Vertex v2) {
 
+		return shortestPathHelper(v1, v2, null);
+	}
+
+	private ArrayList<Vertex> shortestPathHelper(Vertex v1, Vertex v2, Vertex prev) {
+
 		ArrayList<Vertex> path = new ArrayList<Vertex>();
 
 		// Check if we reached the desired vertex
@@ -305,7 +310,14 @@ public class MyGraph implements Graph {
 		// Follow all of the starting vertex adjacent vertices
 		for ( Vertex ver : v1.adjacentVertices() ) {
 
-			path = shortestPath( ver, v2 );
+			// Don't go back to the previous vertex
+			if ( prev != null && 
+					prev.getElement().getX() == ver.getElement().getX() &&
+					prev.getElement().getY() == ver.getElement().getY()) {
+				continue;
+			}
+
+			path = shortestPathHelper( ver, v2, v1 );
 
 			// If this path was successful insert this vertex at the start
 			if ( !path.isEmpty() ) {
@@ -317,7 +329,6 @@ public class MyGraph implements Graph {
 
 		return path;
 	}
-
 	@Override
 	/**
 	 * a minimum spanning tree for the graph

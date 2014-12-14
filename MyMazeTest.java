@@ -196,7 +196,7 @@ public class MyMazeTest {
 			fail("Array[0] length is not " + mazeSize);
 		} 
 
-		mazeSize = 1;
+		mazeSize = 3;
 		maze.generateMaze(mazeSize, mazeSize);
 
 		// check array size
