@@ -163,7 +163,7 @@ public class MyGraph implements Graph {
 
 			// Check if the edge already exists & add it if non-existant
 			Edge edge = findEdge(e.vertices().get(0), e.vertices().get(1));	
-			if(edge == null ) {
+			if( edge == null ) {
 				edges.add(e);
 
 				// Add vertices and edge to adjacent vertices and incident edges lists
@@ -303,7 +303,7 @@ public class MyGraph implements Graph {
 	public Graph minimumSpanningTree() {
 
 		// Create new graph to represent tree
-		MyGraph tree = new MyGraph();
+		MyGraph tempTree = new MyGraph();
 
 		// Make a copy of all available vertices
 		ArrayList< Vertex > outV = new ArrayList< Vertex >();
@@ -315,16 +315,16 @@ public class MyGraph implements Graph {
 		// Pick a vertex to start with
 		int vert = ( int ) Math.random() * outV.size();
 
-		tree.addVertex( outV.get( vert ) );
+		tempTree.addVertex( outV.get( vert ) );
 		outV.remove( vert );
 
 		// PROBLEM: A SPANNING TREE DOES NOT EXIST = INFINITE LOOP
 		while ( outV.size() > 0 ) {
 
 			// Pick a random vertex in tree
-			vert = ( int ) Math.random() * tree.vertices().size();
+			vert = ( int ) Math.random() * tempTree.vertices().size();
 
-			Vertex temp = tree.vertices().get( vert );
+			Vertex temp = tempTree.vertices().get( vert );
 
 			// Get a modifiable list of adjacent vertices
 			ArrayList< Vertex > adjV = new ArrayList< Vertex >();
@@ -344,8 +344,8 @@ public class MyGraph implements Graph {
 				if ( outV.contains( next ) ) {
 
 					// Add new vertex and edge to spanning tree
-					tree.addVertex( next );
-					tree.addEdge( temp, next );
+					tempTree.addVertex( next );
+					tempTree.addEdge( temp, next );
 
 					// Remove new vertex from available ones to choose from
 					outV.remove( next );
@@ -360,9 +360,25 @@ public class MyGraph implements Graph {
 			}
 		}
 		
-		// Not finished
+		// Create new graph based on spanning tree
+		// This will remove all adjacent vertices and incident edges that no longer exist
+		// Also results in new vertices and edges so they can be modified if needed
+		MyGraph result = new MyGraph();
 		
-		return tree;
+		for ( Vertex ver : tempTree.vertices() ) {
+			
+			result.addVertex( ver.getElement() );
+		}
+		
+		for ( Edge edge : tempTree.edges() ) {
+			
+			Vertex v1 = result.findVertex( edge.vertices().get( 0 ).getElement() );
+			Vertex v2 = result.findVertex( edge.vertices().get( 1 ).getElement() );
+			
+			result.addEdge( v1, v2 );
+		}
+		
+		return result;
 	}
 
 	/**
