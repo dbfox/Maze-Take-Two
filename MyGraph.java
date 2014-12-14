@@ -73,19 +73,19 @@ public class MyGraph implements Graph {
 		// Remove the vertex if it exists
 		if(ver != null) {
 			vertices.remove(ver);
-			
+
 			// Remove adjacent vertices and incident edges appropriately
 			for ( Edge e1 : ver.incidentEdges() ) {
-				
+
 				e1.vertices().remove( ver );
-				
+
 				Vertex v1 = e1.vertices().get( 0 );
 				v1.incidentEdges().remove( e1 );
 				v1.adjacentVertices().remove( ver );
-				
+
 				edges.remove( e1 );
 			}
-			
+
 			return true;
 		}
 		return false;
@@ -165,13 +165,13 @@ public class MyGraph implements Graph {
 			Edge edge = findEdge(e.vertices().get(0), e.vertices().get(1));	
 			if(edge == null ) {
 				edges.add(e);
-				
+
 				// Add vertices and edge to adjacent vertices and incident edges lists
 				e.vertices().get( 0 ).adjacentVertices().add( e.vertices().get( 1 ) );
 				e.vertices().get( 0 ).incidentEdges().add( e );
 				e.vertices().get( 1 ).adjacentVertices().add( e.vertices().get( 0 ) );
 				e.vertices().get( 1 ).incidentEdges().add( e );
-				
+
 				return e;
 			} else {
 				return edge;
@@ -212,13 +212,13 @@ public class MyGraph implements Graph {
 		Edge edge = findEdge(e.vertices().get(0), e.vertices().get(1));
 		if(edge != null) {
 			edges.remove(edge);
-			
+
 			// Remove adjacent vertices and incident edges appropriately
 			e.vertices().get( 0 ).adjacentVertices().remove( e.vertices().get( 1 ) );
 			e.vertices().get( 0 ).incidentEdges().remove( edge );
 			e.vertices().get( 1 ).adjacentVertices().remove( e.vertices().get( 0 ) );
 			e.vertices().get( 1 ).incidentEdges().remove( edge );
-			
+
 			return true;
 		}
 		return false;
@@ -301,8 +301,68 @@ public class MyGraph implements Graph {
 	 * @return Graph - a minimum spanning tree for the graph
 	 */
 	public Graph minimumSpanningTree() {
-		// TODO Auto-generated method stub
-		return null;
+
+		// Create new graph to represent tree
+		MyGraph tree = new MyGraph();
+
+		// Make a copy of all available vertices
+		ArrayList< Vertex > outV = new ArrayList< Vertex >();
+
+		for ( Vertex v : vertices ) {
+			outV.add( v );
+		}
+
+		// Pick a vertex to start with
+		int vert = ( int ) Math.random() * outV.size();
+
+		tree.addVertex( outV.get( vert ) );
+		outV.remove( vert );
+
+		// PROBLEM: A SPANNING TREE DOES NOT EXIST = INFINITE LOOP
+		while ( outV.size() > 0 ) {
+
+			// Pick a random vertex in tree
+			vert = ( int ) Math.random() * tree.vertices().size();
+
+			Vertex temp = tree.vertices().get( vert );
+
+			// Get a modifiable list of adjacent vertices
+			ArrayList< Vertex > adjV = new ArrayList< Vertex >();
+
+			for ( Vertex v : temp.adjacentVertices() ) {
+				adjV.add( v );
+			}
+
+			while ( adjV.size() > 0 ) {
+
+				// Choose an adjacent vertex to try
+				int grab = ( int ) Math.random() * adjV.size();
+
+				Vertex next = adjV.get( grab );
+
+				// If the adjacent vertex still needs to be added to the tree
+				if ( outV.contains( next ) ) {
+
+					// Add new vertex and edge to spanning tree
+					tree.addVertex( next );
+					tree.addEdge( temp, next );
+
+					// Remove new vertex from available ones to choose from
+					outV.remove( next );
+
+					// Pick a new vertex in tree and continue
+					break;
+				} else {
+					
+					// Remove next from list of adjacent vertices
+					adjV.remove( next );
+				}
+			}
+		}
+		
+		// Not finished
+		
+		return tree;
 	}
 
 	/**
