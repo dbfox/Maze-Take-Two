@@ -292,11 +292,14 @@ public class MyGraph implements Graph {
 	 */
 	public ArrayList<Vertex> shortestPath(Vertex v1, Vertex v2) {
 
+		System.out.println("Start");
 		return shortestPathHelper(v1, v2, null);
 	}
 
 	private ArrayList<Vertex> shortestPathHelper(Vertex v1, Vertex v2, Vertex prev) {
-
+		
+		// TODO: PROBLEM - OCCASIONALLY STACK OVERFLOWS (NOT ALWAYS)
+		System.out.println("v1: " + v1 + " v2: " + v2 + " prev: " + prev);
 		ArrayList<Vertex> path = new ArrayList<Vertex>();
 
 		// Check if we reached the desired vertex
@@ -307,6 +310,9 @@ public class MyGraph implements Graph {
 			return path;
 		}
 
+		// Check if the path was a dead end
+		if ( v1.adjacentVertices().size() <= 1) return path;
+		
 		// Follow all of the starting vertex adjacent vertices
 		for ( Vertex ver : v1.adjacentVertices() ) {
 
@@ -417,6 +423,7 @@ public class MyGraph implements Graph {
 
 	/**
 	 * create a string representation of the current object state
+	 * 
 	 * @return String - current state of the object
 	 */
 	public String toString() {
