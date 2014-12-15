@@ -68,7 +68,7 @@ public class MyMaze implements Maze {
 		p1.setX( 0 );
 		p1.setY( ( int ) ( Math.random() * rows ) );
 		start = maze.findVertex( p1 );
-		
+
 		// Pick a random row in the last column for the finish
 		MyPair p2 = new MyPair();
 		p2.setX( columns - 1 );
@@ -124,7 +124,7 @@ public class MyMaze implements Maze {
 	public String toString() {
 
 		String str = "";
-//		ArrayList<Vertex> path = solveMaze();
+		ArrayList<Vertex> path = solveMaze();
 
 		// Iterate rows and columns
 		for ( int row = 0; row < mazeArray.length; row++ ) {
@@ -132,7 +132,7 @@ public class MyMaze implements Maze {
 			String nextRow = "";
 
 			for ( int col = 0; col < mazeArray[0].length; col++ ) {
-				
+
 				MyPair current = new MyPair();
 				current.setX( col );
 				current.setY( row );
@@ -140,8 +140,11 @@ public class MyMaze implements Maze {
 				if ( maze.findVertex( current ) == start ) {
 					str += "S";
 				}
-				else if( maze.findVertex( current ) == finish ) {
+				else if ( maze.findVertex( current ) == finish ) {
 					str += "F";
+				}
+				else if ( path.contains( maze.findVertex( current ) ) ) {
+					str += "o";
 				}
 				else {
 					str += "\u2022";
@@ -150,7 +153,15 @@ public class MyMaze implements Maze {
 				// Check if there is an edge between the two vertical nodes
 				if ( row < mazeArray.length - 1 && 
 						maze.areConnected( mazeArray[row][col], mazeArray[row + 1][col] ) ) {
-					nextRow += "|";
+
+					// Check if is along the path to solve the maze
+					if ( path.contains( maze.findVertex( mazeArray[row][col].getElement() ) ) && 
+							path.contains( maze.findVertex( mazeArray[row + 1][col].getElement() ) ) ) {
+						nextRow += "\u2161";
+					}
+					else {
+						nextRow += "|";
+					}
 				}
 				else {
 					nextRow += " ";
@@ -162,7 +173,15 @@ public class MyMaze implements Maze {
 				// Check if there is an edge between the two horizontal nodes
 				if ( col < mazeArray[0].length - 1 && 
 						maze.areConnected( mazeArray[row][col], mazeArray[row][col + 1] ) ) {
-					str += "--";
+
+					// Check if is along the path to solve the maze
+					if ( path.contains( maze.findVertex( mazeArray[row][col].getElement() ) ) && 
+							path.contains( maze.findVertex( mazeArray[row][col + 1].getElement() ) ) ) {
+						str += "==";
+					}
+					else {
+						str += "--";
+					}
 				}
 				else {
 					str += "  ";
