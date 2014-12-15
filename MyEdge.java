@@ -48,7 +48,7 @@ public class MyEdge implements Edge {
 	 * @return A visualization of the edge
 	 */
 	public String toString() {
-		// TODO Auto-generated method stub
-		return "";
+		
+		return "{" + vertices.get( 0 ).getElement() + "," + vertices.get( 1 ).getElement() + "}";
 	}
 }

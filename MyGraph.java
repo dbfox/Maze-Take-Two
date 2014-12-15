@@ -292,48 +292,41 @@ public class MyGraph implements Graph {
 	 */
 	public ArrayList<Vertex> shortestPath(Vertex v1, Vertex v2) {
 
-		return shortestPathHelper(v1, v2, null);
+		ArrayList< Vertex > result = new ArrayList< Vertex >();
+		shortestPathHelper(v1, v2, null, result);
+
+		return result;
 	}
 
-	private ArrayList<Vertex> shortestPathHelper(Vertex v1, Vertex v2, Vertex prev) {
-		
-		// TODO: PROBLEM - OCCASIONALLY STACK OVERFLOWS (NOT ALWAYS)
-		//System.out.println("v1: " + v1 + " v2: " + v2 + " prev: " + prev);
-		ArrayList<Vertex> path = new ArrayList<Vertex>();
+	private boolean shortestPathHelper(Vertex v1, Vertex v2, Vertex prev, 
+			ArrayList< Vertex > result ) {
 
-		// Check if we reached the desired vertex
-		if (v1.getElement().getX() == v2.getElement().getX() &&
-				v1.getElement().getY() == v2.getElement().getY()) {
+		result.add( v1 );
 
-			path.add(v2);
-			return path;
+		if ( v1 == v2 ) {
+			return true;
 		}
 
 		// Check if the path was a dead end
-		if ( v1.adjacentVertices().size() <= 1) return path;
-		
+		if ( v1.adjacentVertices().size() == 1 && prev != null ) {
+			
+			result.remove( v1 );
+			return false;
+		}
+
 		// Follow all of the starting vertex adjacent vertices
 		for ( Vertex ver : v1.adjacentVertices() ) {
 
 			// Don't go back to the previous vertex
-			if ( prev != null && 
-					prev.getElement().getX() == ver.getElement().getX() &&
-					prev.getElement().getY() == ver.getElement().getY()) {
-				continue;
-			}
-
-			path = shortestPathHelper( ver, v2, v1 );
-
-			// If this path was successful insert this vertex at the start
-			if ( !path.isEmpty() ) {
-
-				path.add(0, ver);
-				break;
+			if ( ver != prev ) {
+				if ( shortestPathHelper( ver, v2, v1, result ) ) return true;
 			}
 		}
 
-		return path;
+		result.remove( v1 );
+		return false;
 	}
+
 	@Override
 	/**
 	 * a minimum spanning tree for the graph

@@ -34,16 +34,16 @@ public class MyMaze implements Maze {
 		for ( int r = 0; r < rows; r++ ) {
 
 			for ( int c = 0; c < columns; c++ ) {
-				
+
 				// Create the vertex's pair
 				MyPair p = new MyPair();
 				p.setX(c);
 				p.setY(r);
-				
+
 				// Create the vertex
 				MyVertex m = new MyVertex();
 				m.setElement(p);
-				
+
 				// Add the vertex to the graph
 				mazeArray[r][c] = m;
 				graph.addVertex(m);
@@ -52,23 +52,43 @@ public class MyMaze implements Maze {
 				if ( r != 0 ) {
 					graph.addEdge( mazeArray[r - 1][c], m );
 				}
-				
+
 				// Add the edge to the vertex to the left
 				if ( c != 0 ) {
 					graph.addEdge( mazeArray[r][c - 1], m );
 				}
 			}
 		}
-		
+
 		// Generate the maze
 		maze = graph.minimumSpanningTree();
-		
+
 		// Pick a random row in the first column for the start
-		start = mazeArray[( int )( Math.random() * rows )][0];
+		MyPair p1 = new MyPair();
+		p1.setX( 0 );
+		p1.setY( ( int ) ( Math.random() * rows ) );
+		start = maze.findVertex( p1 );
 		
+		// Pick a random row in the last column for the finish
+		MyPair p2 = new MyPair();
+		p2.setX( columns - 1 );
+		p2.setY( ( int ) ( Math.random() * rows ) );
+		finish = maze.findVertex( p2 );
+		
+		start = mazeArray[( int )( Math.random() * rows )][0];
+
+		// Pick a random row in the last column for the finish
+		finish = mazeArray[( int )( Math.random() * rows )][columns - 1];
+
+		start = mazeArray[( int )( Math.random() * rows )][0];
+
 		// Pick a random row in the last column for the finish
 		finish = mazeArray[( int )( Math.random() * rows )][columns - 1];
 		
+		start = mazeArray[( int )( Math.random() * rows )][0];
+
+		// Pick a random row in the last column for the finish
+		finish = mazeArray[( int )( Math.random() * rows )][columns - 1];
 	}
 
 	@Override
@@ -117,18 +137,27 @@ public class MyMaze implements Maze {
 	 * @return a string representation of the object
 	 */
 	public String toString() {
-		
+
 		String str = "";
-		
+		ArrayList<Vertex> path = solveMaze();
+
 		// Iterate rows and columns
 		for ( int row = 0; row < mazeArray.length; row++ ) {
-			
+
 			String nextRow = "";
-			
+
 			for ( int col = 0; col < mazeArray[0].length; col++ ) {
-				
-				str += "\u2022";
-				
+
+				if ( mazeArray[row][col] == start ) {
+					str += "S";
+				}
+				else if( mazeArray[row][col] == finish ) {
+					str += "F";
+				}
+				else {
+					str += "\u2022";
+				}
+
 				// Check if there is an edge between the two vertical nodes
 				if ( row < mazeArray.length - 1 && 
 						maze.areConnected( mazeArray[row ][col], mazeArray[row + 1][col] ) ) {
@@ -137,10 +166,10 @@ public class MyMaze implements Maze {
 				else {
 					nextRow += " ";
 				}
-				
+
 				// Space out the next row properly
 				if( col < mazeArray[0].length - 1 ) nextRow += "  ";
-				
+
 				// Check if there is an edge between the two horizontal nodes
 				if ( col < mazeArray[0].length - 1 && 
 						maze.areConnected( mazeArray[row][col], mazeArray[row][col + 1] ) ) {
@@ -149,12 +178,12 @@ public class MyMaze implements Maze {
 				else {
 					str += "  ";
 				}
-				
+
 			}
-			
+
 			str += "\n" + nextRow + "\n";
 		}
-		
+
 		return str;
 	}
 
