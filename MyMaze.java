@@ -64,7 +64,6 @@ public class MyMaze implements Maze {
 		maze = graph.minimumSpanningTree();
 
 		// Pick a random row in the first column for the start
-<<<<<<< HEAD
 		MyPair p1 = new MyPair();
 		p1.setX( 0 );
 		p1.setY( ( int ) ( Math.random() * rows ) );
@@ -81,21 +80,15 @@ public class MyMaze implements Maze {
 		// Pick a random row in the last column for the finish
 		finish = mazeArray[( int )( Math.random() * rows )][columns - 1];
 
-=======
->>>>>>> FETCH_HEAD
 		start = mazeArray[( int )( Math.random() * rows )][0];
 
 		// Pick a random row in the last column for the finish
 		finish = mazeArray[( int )( Math.random() * rows )][columns - 1];
-<<<<<<< HEAD
 		
 		start = mazeArray[( int )( Math.random() * rows )][0];
 
 		// Pick a random row in the last column for the finish
 		finish = mazeArray[( int )( Math.random() * rows )][columns - 1];
-=======
-
->>>>>>> FETCH_HEAD
 	}
 
 	@Override
