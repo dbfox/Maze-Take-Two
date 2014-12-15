@@ -74,21 +74,6 @@ public class MyMaze implements Maze {
 		p2.setX( columns - 1 );
 		p2.setY( ( int ) ( Math.random() * rows ) );
 		finish = maze.findVertex( p2 );
-		
-		start = mazeArray[( int )( Math.random() * rows )][0];
-
-		// Pick a random row in the last column for the finish
-		finish = mazeArray[( int )( Math.random() * rows )][columns - 1];
-
-		start = mazeArray[( int )( Math.random() * rows )][0];
-
-		// Pick a random row in the last column for the finish
-		finish = mazeArray[( int )( Math.random() * rows )][columns - 1];
-		
-		start = mazeArray[( int )( Math.random() * rows )][0];
-
-		// Pick a random row in the last column for the finish
-		finish = mazeArray[( int )( Math.random() * rows )][columns - 1];
 	}
 
 	@Override
@@ -139,7 +124,7 @@ public class MyMaze implements Maze {
 	public String toString() {
 
 		String str = "";
-		ArrayList<Vertex> path = solveMaze();
+//		ArrayList<Vertex> path = solveMaze();
 
 		// Iterate rows and columns
 		for ( int row = 0; row < mazeArray.length; row++ ) {
