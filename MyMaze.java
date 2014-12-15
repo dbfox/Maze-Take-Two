@@ -132,11 +132,15 @@ public class MyMaze implements Maze {
 			String nextRow = "";
 
 			for ( int col = 0; col < mazeArray[0].length; col++ ) {
+				
+				MyPair current = new MyPair();
+				current.setX( col );
+				current.setY( row );
 
-				if ( mazeArray[row][col] == start ) {
+				if ( maze.findVertex( current ) == start ) {
 					str += "S";
 				}
-				else if( mazeArray[row][col] == finish ) {
+				else if( maze.findVertex( current ) == finish ) {
 					str += "F";
 				}
 				else {
@@ -145,7 +149,7 @@ public class MyMaze implements Maze {
 
 				// Check if there is an edge between the two vertical nodes
 				if ( row < mazeArray.length - 1 && 
-						maze.areConnected( mazeArray[row ][col], mazeArray[row + 1][col] ) ) {
+						maze.areConnected( mazeArray[row][col], mazeArray[row + 1][col] ) ) {
 					nextRow += "|";
 				}
 				else {
