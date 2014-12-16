@@ -26,7 +26,7 @@ public class MyMazeTest {
 		System.out.println( "maze.toString( ):\n" + maze );
 	}
 
-	// @Test
+	@Test
 	public void testNumberOfEdges( ) {
 		MyMaze maze = new MyMaze( );
 		maze.generateMaze( 5, 5 );
@@ -34,33 +34,53 @@ public class MyMazeTest {
 		if ( graph.edges( ).size( ) != graph.vertices( ).size( ) - 1 ) {
 			fail( "For a 5 x 5 maze, there should be 24 edges. Instead, there are " + graph.edges( ).size( ) + " edges." );
 		}
+		
+		// Test again with much larger maze
+		maze = new MyMaze( );
+		maze.generateMaze( 25, 25 );
+		graph = maze.toGraph( );
+		if ( graph.edges( ).size( ) != graph.vertices( ).size( ) - 1 ) {
+			fail( "For a 25 x 25 maze, there should be 624 edges. Instead, there are " + graph.edges( ).size( ) + " edges." );
+		}
 	}
 
-	// @Test
+	@Test
 	public void testDistinctStartFinish( ) {
 		MyMaze maze = new MyMaze( );
 		maze.generateMaze( 5, 5 );
+		
+		// Make sure start and finish vertices are in the correct places
 		if ( maze.startVertex( ) == maze.finishVertex( ) ) {
 			fail( "startVertex and finishVertex are not unique." );
 		}
-	}
-
-	// @Test
-	public void testArrayIsCorrectSize( ) {
-		MyMaze maze = new MyMaze( );
-		maze.generateMaze( 5, 5 );
-		Vertex[ ][ ] mazeArray = maze.toArray( );
-		if ( mazeArray.length != 5 || mazeArray[0].length != 5 ) {
-			fail( "Maze array is not 5 x 5." );
+		if ( maze.startVertex().getElement().getX() != 0 ) {
+			fail ( "startVertex should be in leftmost column of the graph" );
+		}
+		if ( maze.finishVertex().getElement().getX() != 4 ) {
+			fail ( "finishVertex should be in rightmost column of the graph" );
 		}
 	}
 
-	// @Test
+	@Test
+	public void testArrayIsCorrectSize( ) {
+		MyMaze maze = new MyMaze( );
+		maze.generateMaze( 5, 10 );
+		Vertex[ ][ ] mazeArray = maze.toArray( );
+		
+		// Check to make sure the maze is proportioned properly
+		if ( mazeArray.length != 5 || mazeArray[0].length != 10 ) {
+			fail( "Maze array is not 5 x 10." );
+		}
+	}
+
+	@Test
 	public void testPathBetweenAllVertices( ) {
 		MyMaze maze = new MyMaze( );
 		maze.generateMaze( 4, 4 );
 		Graph graph = maze.toGraph( );
 		ArrayList< Vertex > vertices = graph.vertices( );
+		
+		// Make sure the maze is a true spanning tree
 		for ( int i = 0; i < vertices.size( ); i++ ) {
 			for ( int j = 0; j < vertices.size( ); j++ ) {
 				Vertex v1 = vertices.get( i );
@@ -74,13 +94,15 @@ public class MyMazeTest {
 		}
 	}
 
-	// @Test
+	@Test
 	public void testSolutionPath( ) {
 		MyMaze maze = new MyMaze( );
 		maze.generateMaze( 4, 4 );
 		Graph graph = maze.toGraph( );
 		ArrayList< Vertex > path = graph.shortestPath( maze.startVertex( ), maze.finishVertex( ) );
 		ArrayList< Vertex > solve = maze.solveMaze( );
+		
+		// Make sure the maze is solved correctly
 		if ( path.size( ) != solve.size( ) ) {
 			fail( "Path between start and finish differs in size from solution path." );
 		}
@@ -90,186 +112,4 @@ public class MyMazeTest {
 			}
 		}
 	}
-
-	// @Test
-	public void generateMazeTest() {
-
-		MyMaze maze = new MyMaze();
-
-		// normal maze test
-		int mazeSize = 10;
-		maze.generateMaze(mazeSize, mazeSize);
-
-		// check vertices count
-		if(maze.toGraph().vertices().size() != (mazeSize * mazeSize)) {
-			fail(mazeSize + " x " + mazeSize + " maze should have " + (mazeSize * mazeSize) + " vertices");
-		}
-
-		// check start point
-		if(maze.startVertex() == null) {
-			fail("start vertex is not set after generating maze");
-		}
-		if(maze.startVertex().getElement().getX() != 0) {
-			fail("start vertex should be on the left side of the maze");
-		}
-
-		// check end point
-		if(maze.finishVertex() == null) {
-			fail("finish vertex is not set after generating maze");
-		}
-		if(maze.finishVertex().getElement().getX() != mazeSize) {
-			fail("finish vertex should be on the right side of the maze");
-		}
-
-		// small maze test
-		mazeSize = 1;
-		maze.generateMaze(mazeSize, mazeSize);
-
-		// check vertices count
-		if(maze.toGraph().vertices().size() != (mazeSize * mazeSize)) {
-			fail(mazeSize + " x " + mazeSize + " maze should have " + (mazeSize * mazeSize) + " vertices");
-		}
-
-		// check start point
-		if(maze.startVertex() == null) {
-			fail("start vertex is not set after generating maze");
-		}
-		if(maze.startVertex().getElement().getX() != 0) {
-			fail("start vertex should be on the left side of the maze");
-		}
-
-		// check end point
-		if(maze.finishVertex() == null) {
-			fail("finish vertex is not set after generating maze");
-		}
-		if(maze.finishVertex().getElement().getX() != mazeSize) {
-			fail("finish vertex should be on the right side of the maze");
-		}
-
-		// small maze test
-		mazeSize = 2;
-		maze.generateMaze(mazeSize, mazeSize);
-
-		// check vertices count
-		if(maze.toGraph().vertices().size() != (mazeSize * mazeSize)) {
-			fail(mazeSize + " x " + mazeSize + " maze should have " + (mazeSize * mazeSize) + " vertices");
-		}
-
-		// check start point
-		if(maze.startVertex() == null) {
-			fail("start vertex is not set after generating maze");
-		}
-		if(maze.startVertex().getElement().getX() != 0) {
-			fail("start vertex should be on the left side of the maze");
-		}
-
-		// check end point
-		if(maze.finishVertex() == null) {
-			fail("finish vertex is not set after generating maze");
-		}
-		if(maze.finishVertex().getElement().getX() != mazeSize) {
-			fail("finish vertex should be on the right side of the maze");
-		}
-	}
-
-	// @Test
-	public void solveMazeTest() {
-		fail("Not yet implemented");
-	}
-
-	// @Test
-	public void toGraphTest() {
-		fail("Not yet implemented");
-	}
-
-	// @Test
-	public void toArrayTest() {
-
-		MyMaze maze = new MyMaze();
-		int mazeSize = 10;
-		maze.generateMaze(mazeSize, mazeSize);
-
-		// check array size
-		if(maze.toArray().length != mazeSize) {
-			fail("Array length is not " + mazeSize);
-		}
-		if(maze.toArray()[0].length != mazeSize) {
-			fail("Array[0] length is not " + mazeSize);
-		} 
-
-		mazeSize = 3;
-		maze.generateMaze(mazeSize, mazeSize);
-
-		// check array size
-		if(maze.toArray().length != mazeSize) {
-			fail("Array length is not " + mazeSize);
-		}
-		if(maze.toArray()[0].length != mazeSize) {
-			fail("Array[0] length is not " + mazeSize);
-		}
-
-		mazeSize = 2;
-		maze.generateMaze(mazeSize, mazeSize);
-
-		// check array size
-		if(maze.toArray().length != mazeSize) {
-			fail("Array length is not " + mazeSize);
-		}
-		if(maze.toArray()[0].length != mazeSize) {
-			fail("Array[0] length is not " + mazeSize);
-		}
-	}
-
-	// @Test
-	public void startVertexTest() {
-		fail("Not yet implemented");
-	}
-
-	// @Test
-	public void finishVertexTest() {
-		fail("Not yet implemented");
-	}
-
-	// @Test
-	public void toStringTest() {
-		fail("Not yet implemented");
-	}
-
-
-//	public ArrayList<Vertex> shortestPath(Vertex v1, Vertex v2) {
-//
-//		ArrayList< Vertex > result = new ArrayList< Vertex >();
-//		shortestPathHelper(v1, v2, null, result);
-//
-//		return result;
-//	}
-//
-//	private boolean shortestPathHelper(Vertex v1, Vertex v2, Vertex prev, 
-//			ArrayList< Vertex > result ) {
-//
-//		result.add( v1 );
-//
-//		if ( v1 == v2 ) {
-//			return true;
-//		}
-//
-//		// Check if the path was a dead end
-//		if ( v1.adjacentVertices().size() == 1) {
-//			
-//			result.remove( v1 );
-//			return false;
-//		}
-//
-//		// Follow all of the starting vertex adjacent vertices
-//		for ( Vertex ver : v1.adjacentVertices() ) {
-//
-//			// Don't go back to the previous vertex
-//			if ( ver != prev ) {
-//				if ( shortestPathHelper( ver, v2, v1, result ) ) return true;
-//			}
-//		}
-//
-//		result.remove( v1 );
-//		return false;
-//	}
 }
