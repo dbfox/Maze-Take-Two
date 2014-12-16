@@ -74,6 +74,20 @@ public class MyMaze implements Maze {
 		p2.setX( columns - 1 );
 		p2.setY( ( int ) ( Math.random() * rows ) );
 		finish = maze.findVertex( p2 );
+		
+		
+		// Add new vertices into mazeArray
+		for ( int r = 0; r < rows; r++ ) {
+
+			for ( int c = 0; c < columns; c++ ) {
+				
+				MyPair pair = new MyPair();
+				pair.setX( c );
+				pair.setY( r );
+				
+				mazeArray [ r ][ c ] = maze.findVertex( pair );
+			}
+		}
 	}
 
 	@Override
