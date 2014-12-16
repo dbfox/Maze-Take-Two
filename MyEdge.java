@@ -17,7 +17,9 @@ public class MyEdge implements Edge {
 	
 	@Override
 	/**
+	 * Returns the weight of the edge
 	 * 
+	 * @return The relative weight of the edge
 	 */
 	public int getElement() {
 		return element;
@@ -25,7 +27,9 @@ public class MyEdge implements Edge {
 
 	@Override
 	/**
+	 * Sets the weight of the edge
 	 * 
+	 * @param e The relative weight of the edge
 	 */
 	public void setElement(int e) {
 		element = e;

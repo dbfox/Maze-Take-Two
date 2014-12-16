@@ -17,6 +17,10 @@ import org.junit.Test;
 public class MyMazeTest {
 
 	@Test
+	/**
+	 * Creates a maze and prints out the different properties of it
+	 * to be reviewed.
+	 */
 	public void test( ) {
 		MyMaze maze = new MyMaze( );
 		maze.generateMaze( 5, 5 );
@@ -27,12 +31,17 @@ public class MyMazeTest {
 	}
 
 	@Test
+	/**
+	 * Tests to make sure the correct number of edges are stored within
+	 * the maze/spanning tree.
+	 */
 	public void testNumberOfEdges( ) {
 		MyMaze maze = new MyMaze( );
 		maze.generateMaze( 5, 5 );
 		Graph graph = maze.toGraph( );
 		if ( graph.edges( ).size( ) != graph.vertices( ).size( ) - 1 ) {
-			fail( "For a 5 x 5 maze, there should be 24 edges. Instead, there are " + graph.edges( ).size( ) + " edges." );
+			fail( "For a 5 x 5 maze, there should be 24 edges. "
+					+ "Instead, there are " + graph.edges( ).size( ) + " edges." );
 		}
 		
 		// Test again with much larger maze
@@ -40,11 +49,16 @@ public class MyMazeTest {
 		maze.generateMaze( 25, 25 );
 		graph = maze.toGraph( );
 		if ( graph.edges( ).size( ) != graph.vertices( ).size( ) - 1 ) {
-			fail( "For a 25 x 25 maze, there should be 624 edges. Instead, there are " + graph.edges( ).size( ) + " edges." );
+			fail( "For a 25 x 25 maze, there should be 624 edges. "
+					+ "Instead, there are " + graph.edges( ).size( ) + " edges." );
 		}
 	}
 
 	@Test
+	/**
+	 * Tests to make sure the start and finish vertices are distinct and
+	 * in the correct columns.
+	 */
 	public void testDistinctStartFinish( ) {
 		MyMaze maze = new MyMaze( );
 		maze.generateMaze( 5, 5 );
@@ -62,6 +76,9 @@ public class MyMazeTest {
 	}
 
 	@Test
+	/**
+	 * Checks to make sure the dimensions of the maze are correct.
+	 */
 	public void testArrayIsCorrectSize( ) {
 		MyMaze maze = new MyMaze( );
 		maze.generateMaze( 5, 10 );
@@ -74,9 +91,13 @@ public class MyMazeTest {
 	}
 
 	@Test
+	/**
+	 * Tests to make sure the maze is a proper spanning tree (all vertices
+	 * are connected to all other vertices).
+	 */
 	public void testPathBetweenAllVertices( ) {
 		MyMaze maze = new MyMaze( );
-		maze.generateMaze( 4, 4 );
+		maze.generateMaze( 5, 5 );
 		Graph graph = maze.toGraph( );
 		ArrayList< Vertex > vertices = graph.vertices( );
 		
@@ -95,6 +116,9 @@ public class MyMazeTest {
 	}
 
 	@Test
+	/**
+	 * Tests to make sure the correct path is created when solving the maze.
+	 */
 	public void testSolutionPath( ) {
 		MyMaze maze = new MyMaze( );
 		maze.generateMaze( 4, 4 );

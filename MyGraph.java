@@ -98,7 +98,6 @@ public class MyGraph implements Graph {
 	 * @return boolean - true if successfully removed
 	 */
 	public boolean removeVertex(Vertex v) {
-
 		return removeVertex(v.getElement());
 	}
 
@@ -298,6 +297,18 @@ public class MyGraph implements Graph {
 		return result;
 	}
 
+	/**
+	 * Recursively finds the shortest path from one vertex to another
+	 * in a spanning tree graph
+	 * 
+	 * @param v1     The current vertex
+	 * @param v2	 The vertex being searched for
+	 * @param prev	 The vertex that was just previously visited
+	 * @param result The ArrayList storing the path from the start vertex
+	 * 				 to the finish vertex
+	 * 
+	 * @return True if the finish vertex was found, otherwise false
+	 */
 	private boolean shortestPathHelper(Vertex v1, Vertex v2, Vertex prev, 
 			ArrayList< Vertex > result ) {
 
@@ -411,14 +422,5 @@ public class MyGraph implements Graph {
 		}
 
 		return result;
-	}
-
-	/**
-	 * create a string representation of the current object state
-	 * 
-	 * @return String - current state of the object
-	 */
-	public String toString() {
-		return "";
 	}
 }
